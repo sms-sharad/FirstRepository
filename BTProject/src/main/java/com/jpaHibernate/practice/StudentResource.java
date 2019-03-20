@@ -1,18 +1,12 @@
 package com.jpaHibernate.practice;
 
 import javax.persistence.EntityManagerFactory;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-import javax.transaction.Transaction;
 import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 @Transactional
 //@Repository
@@ -23,16 +17,32 @@ public class StudentResource {
 	private SessionFactory sessionFactory;
 
 	public void m1() throws Exception{
-		System.out.println("In m1");
-		Session session = sessionFactory.getCurrentSession();
 		
-		
-		Student stud=new Student("Vikas", "ABC");
-		session.save(stud);
-		int stdId=stud.getId();
-		System.out.println("ID:: "+stdId);
+		//First Session using save()
+		Session session = sessionFactory.openSession();
+		Student stud=new Student("Vikas", "KP94039");
+		int stdid1=(int) session.save(stud);
+		System.out.println("Save method perfor ID1:: "+stdid1);
 		session.beginTransaction();
 		session.getTransaction().commit();
+		
+		//Second Session using update method
+		Session session_1 = sessionFactory.openSession();
+		session_1.beginTransaction();
+		stud.setName("Dnyanu");
+		//session1.refresh(stud);
+		session_1.saveOrUpdate(stud);
+		session_1.getTransaction().commit();
+		Student std1=session_1.load(Student.class, stdid1);
+		System.out.println("LOAD method");
+		System.out.println(std1.getName()+" "+std1.getPassportNumber());
+		
+		//Third Session using saveOrUpdate
+		Session session_2=sessionFactory.openSession();
+		session_2.beginTransaction();
+		Student std=new Student("Kiran", "KP94036");
+		session_2.persist(std);
+		session_2.getTransaction().commit();
 		
 		/*Session session1 = sessionFactory.getCurrentSession();
 		session1.beginTransaction();
@@ -54,9 +64,9 @@ public class StudentResource {
 		System.out.println(std1.getName()+" "+std1.getPassportNumber());*/
 		
 		
-		//Merge method
+		//using merge() method
 		
-		/*Session session_1 = sessionFactory.getCurrentSession();
+		/*Session session_1 = sessionFactory.openSession();
 		session_1.beginTransaction();
 		stud.setName("Dnyanu");
 		//session1.refresh(stud);
@@ -67,8 +77,7 @@ public class StudentResource {
 		System.out.println("LOAD method");
 		System.out.println(std1.getName()+" "+std1.getPassportNumber());*/
 		
-		
-		
+		//using update()
 		
 		//getSessionFactory().close();
 	}

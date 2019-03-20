@@ -1,7 +1,6 @@
 package com.spring.rest.example;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EmployeeController {
+public class EmployeeController{
 
 private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 	
@@ -35,7 +34,7 @@ private static final Logger logger = LoggerFactory.getLogger(EmployeeController.
 		Employee emp = new Employee();
 		emp.setId(9999);
 		emp.setName("Dummy");
-		emp.setCreatedDate(new Date());
+		//emp.setCreatedDate(new Date());
 		empData.put(9999, emp);
 		return emp;
 	}
@@ -58,15 +57,15 @@ private static final Logger logger = LoggerFactory.getLogger(EmployeeController.
 		return emps;
 	}
 	
-	@RequestMapping(value = EmpRestURIConstants.CREATE_EMP, method = RequestMethod.POST)
+	
+	@RequestMapping(value = EmpRestURIConstants.CREATE_EMP, method = RequestMethod.PUT)
 	public @ResponseBody Employee createEmployee(@RequestBody Employee emp) {
 		logger.info("Start createEmployee.");
-		emp.setCreatedDate(new Date());
 		empData.put(emp.getId(), emp);
 		return emp;
 	}
 	
-	@RequestMapping(value = EmpRestURIConstants.DELETE_EMP, method = RequestMethod.PUT)
+	@RequestMapping(value = EmpRestURIConstants.DELETE_EMP, method = RequestMethod.POST)
 	public @ResponseBody Employee deleteEmployee(@PathVariable("id") int empId) {
 		logger.info("Start deleteEmployee.");
 		Employee emp = empData.get(empId);

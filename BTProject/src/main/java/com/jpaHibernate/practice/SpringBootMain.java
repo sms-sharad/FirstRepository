@@ -23,7 +23,6 @@ public class SpringBootMain implements CommandLineRunner{
 		ConfigurableApplicationContext applicationContext=SpringApplication.run(SpringBootMain.class, args);
 		StudentResource resource=applicationContext.getBean(StudentResource.class);
 		resource.m1();
-		resource.getSessionFactory().close();
 		
 	}
 	@Override

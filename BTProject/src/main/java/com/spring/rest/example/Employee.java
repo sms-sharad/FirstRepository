@@ -14,8 +14,18 @@ public class Employee implements Serializable {
 	
 	private int id;
 	private String name;
-	private Date createdDate;
+	//private Date createdDate;
 	
+	
+	
+	public Employee(int id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	public Employee() {
+		super();
+	}
 	public int getId() {
 		return id;
 	}
@@ -29,11 +39,11 @@ public class Employee implements Serializable {
 		this.name = name;
 	}
 	
-	@JsonSerialize(using=DateSerializer.class)
+	/*@JsonSerialize(using=DateSerializer.class)
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}
+	}*/
 }

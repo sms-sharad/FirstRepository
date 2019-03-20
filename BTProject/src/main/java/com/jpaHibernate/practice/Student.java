@@ -16,6 +16,7 @@ public class Student {
     @Column(name = "stud_id")
 	private int id;
 	private String name;
+	@Column(name="passportNo",unique=true,nullable=false,length=10)
 	private String passportNumber;
 	
 	

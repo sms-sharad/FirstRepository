@@ -6,7 +6,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.spring.autowire.controller.EmpController;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class MainApp {
 
 	public static void main(String[] args) {
